@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>台灣希望國際宣道事工</title>
+  <style>
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      margin: 0;
+      background-color: #f2f6f7;
+      line-height: 1.6;
+    }
+    header {
+      background-color: #004e3f;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #027e6a;
+    }
+    nav a {
+      color: white;
+      padding: 14px 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      background-color: #015c4e;
+    }
+    .section {
+      background: white;
+      margin: 30px auto;
+      padding: 40px 20px;
+      max-width: 800px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #00584e;
+      margin-top: 0;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    audio {
+      width: 100%;
+      margin-top: 10px;
+    }
+    a.download {
+      display: inline-block;
+      margin-right: 15px;
+      margin-top: 10px;
+      text-decoration: none;
+      color: #006699;
+    }
+    a.download:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>台灣希望國際宣道事工</h1>
+  <p>憑信心生活｜原民敬拜｜同心宣道</p>
+</header>
+
+<nav>
+  <a href="#about">關於事工</a>
+  <a href="#services">聚會時間</a>
+  <a href="#worship">詩歌敬拜</a>
+  <a href="#contact">聯絡我們</a>
+</nav>
+
+<div class="section" id="about">
+  <h2>關於我們</h2>
+  <p>本事工創立於主後1990年，是政府立案的非營利宣教團隊，目前有43位全職同工，絕大多數是屏東當地排灣族弟兄姊妹，一同在部落生活與服事。35年來皆憑信心生活，不支薪，完全透過禱告與主的供應，同心敬拜與宣道。</p>
+</div>
+
+<div class="section" id="services">
+  <h2>聚會時間與地點</h2>
+  <ul>
+    <li><strong>聖靈之夜：</strong>每週六 下午七點｜屏東縣瑪家鄉涼山村67之30號</li>
+    <li><strong>主日聚會：</strong>每週日 早上九點｜同址</li>
+  </ul>
+</div>
+
+<div class="section" id="worship">
+  <h2>原創詩歌：主是我力量</h2>
+  <audio controls>
+    <source src="songs/zhu-shi-wo-li-liang.mp3" type="audio/mpeg">
+    您的瀏覽器不支援音樂播放。
+  </audio>
+  <div>
+    <a class="download" href="songs/zhu-shi-wo-li-liang.pdf" download>下載 PDF 樂譜</a>
+    <a class="download" href="songs/zhu-shi-wo-li-liang.mp3" download>下載 MP3 音檔</a>
+  </div>
+</div>
+
+<div class="section" id="contact">
+  <h2>聯絡我們</h2>
+  <p>📍 事工地址：屏東市機場北路520號5樓</p>
+  <p>📍 聚會地址：屏東縣瑪家鄉涼山村67之30號</p>
+  <p>📧 Email：<a href="mailto:jclj0217@gmail.com">jclj0217@gmail.com</a></p>
+  <p>📞 聯絡電話：0937385324（路得師母）</p>
+  <p>📺 Youtube｜Facebook（可插入圖示與超連結）</p>
+</div>
+
+</body>
+</html>
