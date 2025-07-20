@@ -1,42 +1,145 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>台灣希望國際宣道事工</title>
-  <style>
-    body {
-      font-family: 'Noto Sans TC', sans-serif;
-      margin: 0;
-      background-color: #f2f6f7;
-      line-height: 1.6;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>詩歌搜尋 | 詩歌本第一冊</title>
+</head>
+<body>
+  <h1>📖 詩歌本 第一冊</h1>
+  <input type="text" id="searchBox" placeholder="輸入歌名搜尋..." />
+
+  <ul id="songList"></ul>
+  <audio id="audioPlayer" controls></audio>
+
+  <script>
+    // ======== 歌名清單 ========
+    const songsData = [
+      "交託",
+      "因祢聖靈 榮上加榮",
+      "神掌權",
+      "是祢讓我抬起頭",
+      "我主何等美麗",
+      "祢的寶座在這裡",
+      "我要看見神的國度",
+      "耶和華以勒的神",
+      "喜樂的心",
+      "因祢的愛",
+      "我的禱告",
+      "溫柔的聖靈(吸引我靈)",
+      "Beautiful",
+      "聖靈 烈火",
+      "主的名有能力",
+      "與祢面對面",
+      "是祢揀選我",
+      "堅定的約",
+      "祢的愛(從來沒有想過)",
+      "我有耶穌救恩的記號",
+      "快樂敬拜",
+      "大大喜樂",
+      "興起吧 神的兒女",
+      "新的一天",
+      "將榮耀歸於(祢)神",
+      "我尊榮祢",
+      "在 神凡事都能",
+      "奇妙的救主",
+      "沒有人可以幫助我們",
+      "神的靈運行",
+      "我心回轉向祢",
+      "求吸引我心",
+      "完全的愛",
+      "I Believe",
+      "新酒新油",
+      "我要歌頌",
+      "一天七次讚美祢",
+      "最高榮耀",
+      "和散那",
+      "親愛聖靈",
+      "哦 猶大的獅子",
+      "一件新事",
+      "耶和華以勒",
+      "進入神的禧年",
+      "I Love You, Jesus",
+      "聖靈如烈火降臨",
+      "祢的同在",
+      "Here I am 我在這裡",
+      "我的每一天",
+      "完美平安"
+    ];
+
+    const songList = document.getElementById("songList");
+    const audioPlayer = document.getElementById("audioPlayer");
+    let currentPlaying = null;
+
+    // ======== 建立歌單 ========
+    function renderSongs() {
+      songList.innerHTML = "";
+      songsData.forEach(song => {
+        const li = document.createElement("li");
+        li.setAttribute("data-pdf", song + ".pdf");
+        li.setAttribute("data-mp3", song + ".mp3");
+        li.innerHTML = `${song} <button>播放</button>`;
+        songList.appendChild(li);
+      });
+      addSongClickEvents();
     }
-    header {
-      background-color: #004e3f;
-      color: white;
-      padding: 30px 20px;
-      text-align: center;
+
+    // ======== 搜尋功能 + 高亮 ========
+    const searchBox = document.getElementById("searchBox");
+    searchBox.addEventListener("input", () => {
+      const keyword = searchBox.value.toLowerCase();
+      Array.from(songList.getElementsByTagName("li")).forEach(song => {
+        const text = song.textContent.replace("播放", "").trim();
+        song.innerHTML = `${text} <button>播放</button>`; // 重置
+        if (text.toLowerCase().includes(keyword)) {
+          song.style.display = "list-item";
+          if (keyword) {
+            const regex = new RegExp(`(${keyword})`, "gi");
+            song.innerHTML = text.replace(regex, "<span style='background:yellow;color:black;'>$1</span>") + " <button>播放</button>";
+          }
+        } else {
+          song.style.display = "none";
+        }
+      });
+      addSongClickEvents();
+    });
+
+    // ======== 點擊事件（PDF + 播放） ========
+    function addSongClickEvents() {
+      const songs = Array.from(songList.getElementsByTagName("li"));
+      songs.forEach(song => {
+        const btn = song.querySelector("button");
+        // 點擊歌曲名稱 -> 開啟 PDF
+        song.childNodes[0].addEventListener("click", () => {
+          const pdfFile = song.getAttribute("data-pdf");
+          if (pdfFile) window.open("songs-pdf/" + pdfFile, "_blank");
+        });
+        // 播放 MP3
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const mp3File = song.getAttribute("data-mp3");
+          if (currentPlaying === song) {
+            audioPlayer.pause();
+            btn.textContent = "播放";
+            currentPlaying = null;
+          } else {
+            audioPlayer.src = "songs-mp3/" + mp3File;
+            audioPlayer.play();
+            if (currentPlaying) currentPlaying.querySelector("button").textContent = "播放";
+            btn.textContent = "暫停";
+            currentPlaying = song;
+          }
+        });
+      });
     }
-    header h1 {
-      margin: 0;
-      font-size: 28px;
-    }
-    nav {
-      display: flex;
-      justify-content: center;
-      background-color: #027e6a;
-    }
-    nav a {
-      color: white;
-      padding: 14px 20px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav a:hover {
-      background-color: #015c4e;
-    }
-    .section {
-      background: white;
-      margin: 30px auto;
-      padding: 40px 20px;
-      max-width
+
+    audioPlayer.addEventListener("ended", () => {
+      if (currentPlaying) currentPlaying.querySelector("button").textContent = "播放";
+      currentPlaying = null;
+    });
+
+    // 初始化
+    renderSongs();
+  </script>
+</body>
+</html>
