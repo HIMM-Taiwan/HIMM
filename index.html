@@ -2,107 +2,33 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>詩歌搜尋</title>
 </head>
 <body>
-  <h1>📖 詩歌搜尋</h1>
-  
-  <!-- 歌本選擇 -->
-  <label for="bookSelect">選擇歌本：</label>
-  <select id="bookSelect"></select>
+  <h1>📖 詩歌本 第一冊</h1>
 
-  <!-- 搜尋框 -->
-  <input type="text" id="searchBox" placeholder="輸入歌名搜尋..." />
-
-  <!-- 歌單列表 -->
   <ul id="songList"></ul>
 
-  <!-- 歌曲詳情頁 -->
-  <div id="songDetail" style="display:none;">
-    <h2 id="songTitle"></h2>
-    <div id="songLyrics">載入歌詞中...</div>
-    <p><a id="pdfLink" href="#" target="_blank">📄 查看 PDF</a></p>
-    <audio id="audioPlayer" controls></audio>
-    <br>
-    <button id="backBtn">返回歌單</button>
-  </div>
-
   <script>
-    // ========== 歌本資料 ==========
-    const songBooks = {
-      "第一冊": ["交託", "因祢聖靈 榮上加榮", "神掌權", "是祢讓我抬起頭"],
-      "第二冊": ["榮耀歸主", "祢的恩典夠我用", "永恆的愛"],
-      "第三冊": ["十架的愛", "祢真偉大", "天父的花園"]
-    };
+    const songs = [
+      "交託",
+      "因祢聖靈 榮上加榮",
+      "神掌權",
+      "是祢讓我抬起頭",
+      // 你可以繼續補充歌名
+    ];
 
-    const bookSelect = document.getElementById("bookSelect");
-    const searchBox = document.getElementById("searchBox");
     const songList = document.getElementById("songList");
-
-    const songDetail = document.getElementById("songDetail");
-    const songTitle = document.getElementById("songTitle");
-    const songLyrics = document.getElementById("songLyrics");
-    const pdfLink = document.getElementById("pdfLink");
-    const audioPlayer = document.getElementById("audioPlayer");
-    const backBtn = document.getElementById("backBtn");
-
-    // 當前播放歌曲
-    let currentBook = "第一冊";
-
-    // 初始化歌本選單
-    function initBookSelect() {
-      bookSelect.innerHTML = "";
-      for (const bookName in songBooks) {
-        const option = document.createElement("option");
-        option.value = bookName;
-        option.textContent = bookName;
-        bookSelect.appendChild(option);
-      }
-    }
-
-    // 渲染歌單
-    function renderSongs(bookName) {
-      songList.innerHTML = "";
-      const songs = songBooks[bookName] || [];
-      songs.forEach(song => {
-        const li = document.createElement("li");
-        li.textContent = song;
-        li.addEventListener("click", () => showSongDetail(song));
-        songList.appendChild(li);
-      });
-    }
-
-    // 顯示歌曲詳情
-    function showSongDetail(song) {
-      songTitle.textContent = song;
-      songLyrics.textContent = "此處可顯示歌詞（未來可從檔案載入）";
-      pdfLink.href = "songs-pdf/" + song + ".pdf";
-      audioPlayer.src = "songs-mp3/" + song + ".mp3";
-      songList.style.display = "none";
-      searchBox.style.display = "none";
-      bookSelect.style.display = "none";
-      songDetail.style.display = "block";
-    }
-
-    // 返回歌單
-    backBtn.addEventListener("click", () => {
-      songDetail.style.display = "none";
-      songList.style.display = "block";
-      searchBox.style.display = "inline";
-      bookSelect.style.display = "inline";
-      audioPlayer.pause();
+    songs.forEach(song => {
+      // 使用 encodeURIComponent 編碼歌名，放到連結參數
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = `song.html?song=${encodeURIComponent(song)}`;
+      a.textContent = song;
+      li.appendChild(a);
+      songList.appendChild(li);
     });
-
-    // 搜尋功能
-    searchBox.addEventListener("input", () => {
-      const keyword = searchBox.value.toLowerCase();
-      Array.from(songList.getElementsByTagName("li")).forEach(song => {
-        song.style.display = song.textContent.toLowerCase().includes(keyword) ? "list-item" : "none";
-      });
-    });
-
-    // 初始化
-    bookSelect.addEventListener("change", () => {
-      currentBook = bookSelect.value;
-      renderSongs(currentBook
+  </script>
+</body>
+</html>
